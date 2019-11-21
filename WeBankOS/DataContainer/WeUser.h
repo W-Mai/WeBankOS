@@ -1,6 +1,6 @@
 #pragma once
 
-#include "FileGroup.h"
+#include "../FileGroup.h"
 
 using namespace std;
 
@@ -13,6 +13,7 @@ private:
 	string age;
 	string TEL;
 	vector<AccountType> cards;
+	vector<ReceiptAndDisbursement *> receiptAndDisbursements;
 public:
 	WeUser() = default;
 };

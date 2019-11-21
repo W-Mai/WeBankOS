@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "FileGroup.h"
+#include "../FileGroup.h"
 
 using namespace std;
 

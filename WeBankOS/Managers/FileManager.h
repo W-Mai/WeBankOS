@@ -1,6 +1,6 @@
 #pragma once
 
-#include "FileGroup.h"
+#include "../FileGroup.h"
 
 class FileManager {
 	

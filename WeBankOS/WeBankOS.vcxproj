@@ -152,24 +152,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="FundsManager.cpp" />
-    <ClCompile Include="ICCard.cpp" />
-    <ClCompile Include="ICCardsManager.cpp" />
+    <ClCompile Include="DataContainer\ICCard.cpp" />
+    <ClCompile Include="DataContainer\WeUser.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="UserManager.cpp" />
+    <ClCompile Include="Managers\FileManager.cpp" />
+    <ClCompile Include="Managers\FundsManager.cpp" />
+    <ClCompile Include="Managers\ICCardsManager.cpp" />
+    <ClCompile Include="Managers\UserManager.cpp" />
     <ClCompile Include="WeBankOS.cpp" />
-    <ClCompile Include="WeUser.cpp" />
+    <ClCompile Include="XData\XData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataContainer\ICCard.h" />
+    <ClInclude Include="DataContainer\WeUser.h" />
     <ClInclude Include="FileGroup.h" />
-    <ClInclude Include="FileManager.h" />
-    <ClInclude Include="FundsManager.h" />
-    <ClInclude Include="ICCard.h" />
-    <ClInclude Include="ICCardsManager.h" />
-    <ClInclude Include="UserManager.h" />
+    <ClInclude Include="Managers\FileManager.h" />
+    <ClInclude Include="Managers\FundsManager.h" />
+    <ClInclude Include="Managers\ICCardsManager.h" />
+    <ClInclude Include="Managers\UserManager.h" />
     <ClInclude Include="WeBankOS.h" />
-    <ClInclude Include="WeUser.h" />
+    <ClInclude Include="XData\XData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LOGO.ai" />

@@ -21,22 +21,25 @@
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="UserManager.cpp">
+    <ClCompile Include="XData\XData.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FundsManager.cpp">
+    <ClCompile Include="DataContainer\ICCard.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ICCardsManager.cpp">
+    <ClCompile Include="DataContainer\WeUser.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ICCard.cpp">
+    <ClCompile Include="Managers\FileManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="WeUser.cpp">
+    <ClCompile Include="Managers\FundsManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FileManager.cpp">
+    <ClCompile Include="Managers\ICCardsManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Managers\UserManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,25 +47,28 @@
     <ClInclude Include="WeBankOS.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="UserManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="FundsManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ICCardsManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ICCard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="WeUser.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="FileManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="FileGroup.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XData\XData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DataContainer\ICCard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\FileManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\FundsManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\ICCardsManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Managers\UserManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DataContainer\WeUser.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
