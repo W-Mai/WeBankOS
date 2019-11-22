@@ -16,13 +16,13 @@ void* WeUser::getData() {
 	for (auto it = cards.begin(); it != cards.end();it++) {
 		cardsData.push((char *)(*it).c_str(), (*it).size());
 	}
-	data.push(cardsData, PACKLEN(cardsData));
+	data.push(cardsData, cardsData.size());
 
 	XData receiptAndDisbursementsData;
 	for (auto it = receiptAndDisbursements.begin(); it != receiptAndDisbursements.end(); it++) {
 		receiptAndDisbursementsData.push((*it)->getData(), (*it)->getSize());
 	}
-	data.push(receiptAndDisbursementsData, PACKLEN(receiptAndDisbursementsData));
+	data.push(receiptAndDisbursementsData, receiptAndDisbursementsData.size());
 
 	return data;
 }

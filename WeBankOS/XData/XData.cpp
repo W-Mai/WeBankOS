@@ -90,14 +90,15 @@ size_t XData::size() {/*返回数据包大小*/
 	return S + LEADSIZE;
 }
 
-size_t XData::get(void *des) {/*返回当前指针指向的数据包大小	des为数据指针地址*/
-	auto tmp = *gIt;
-	*(char **)des = tmp.first;
+size_t XData::get(void* des) {/*返回当前指针指向的数据包大小	des为数据指针地址*/
+	ElementType_T tmp = datas.empty() ? ElementType_T{ new char[4]{0},0 } : *gIt;
+	*(char**)des = tmp.first;
 	return tmp.second;
 }
 
 XData::operator void*() {/*返回整个数据包的内容*/
-	char * rtn = new char[size()];
+	char* rtn = new char[size()];
+	memset(rtn, 0, size());
 	char * p = rtn;
 
 	*(pLead)((p += LEADSIZE) - LEADSIZE) = S;

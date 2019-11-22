@@ -9,9 +9,10 @@ using namespace std;
 
 #define STRLENTH 21
 
+//20λ: 62 1226 101000 + 8λ
 class ICCard : virtual public DataPack{
 
-private:
+public:
 	string account;
 	string host;
 	string TEL;

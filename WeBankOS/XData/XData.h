@@ -17,8 +17,8 @@ typedef size_t Lead;
 typedef Lead * pLead;
 #define LEADSIZE sizeof(Lead)
 
-
-typedef std::vector<std::pair<char *, size_t> > DataType_T;/*内部存储数据类型*/
+typedef std::pair<char*, size_t> ElementType_T;
+typedef std::vector<ElementType_T> DataType_T;/*内部存储数据类型*/
 
 typedef void* LPVOID;
 

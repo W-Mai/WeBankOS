@@ -1,28 +1,45 @@
 #include "UserManager.h"
 
-WeUser* UserManager::searchUser(string ID) {
-	// TODO: 在此处插入 return 语句
-	return nullptr;
+vector<WeUser*>::iterator UserManager::searchUser(string ID) {
+	return find_if(WeUsers.begin(), WeUsers.end(), [&ID](WeUser* usr) {return usr->ID == ID; });
 }
 
 bool UserManager::registerUser(WeUser* usr) {
+	if (searchUser(usr->ID)==WeUsers.end()) {
+		WeUsers.push_back(usr);
+		return true;
+	}
 	return false;
 }
 
-bool UserManager::registerUser(string name, string ID, bool gender, string age, string TEL) {
-	return false;
+bool UserManager::registerUser(string name, string ID, bool gender, int age, string TEL) {
+	WeUser* usr = new WeUser;
+	usr->name = name;
+	usr->ID = ID;
+	usr->gender = gender;
+	usr->age = age;
+	usr->TEL = TEL;
+	return registerUser(usr);
 }
 
 bool UserManager::cancelUser(WeUser* usr) {
-	return false;
+	return cancelUser(usr->ID);
 }
 
 bool UserManager::cancelUser(string ID) {
+	auto rst = searchUser(ID);
+	if (rst != WeUsers.end()) {
+		WeUsers.erase(rst);
+		return true;
+	}
 	return false;
 }
 
-WeUser* UserManager::verifyUser(string name, string password) {
-	// TODO: 在此处插入 return 语句
+WeUser* UserManager::verifyUser(string ID, string password) {
+	vector<WeUser*>::iterator usr = searchUser(ID);
+	if (usr!=WeUsers.end() && (*usr)->password == password) {
+		return *usr;
+	}
 	return nullptr;
 }
 
