@@ -1,9 +1,10 @@
 #pragma once
 
-#include "../FileGroup.h"
+#include <string>
+
+class WeUser;
 
 using namespace std;
-
 
 class UserManager {
 private:

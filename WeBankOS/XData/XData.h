@@ -1,10 +1,17 @@
 #pragma once
 
-#include "../FileGroup.h"
+//#include "../FileGroup.h"
+#include <vector>
+
+#ifdef DEBUG
+#define DE(n) std::cout << "OK [" << n << "]" << std::endl;
+#else
+#define DE(n)
+#endif // DEBUG
 
 #define PACK(data,size) std::make_pair(data, size)
 #define FAILED -1
-#define PACKLEN(n) (*(pLead)(void *)u)
+#define PACKLEN(pack) (*(pLead)(void *)pack)
 
 typedef size_t Lead;
 typedef Lead * pLead;
@@ -42,3 +49,9 @@ public:
 	~XData();
 };
 
+class DataPack {
+public:
+	virtual size_t getSize() { return size_t(0); };
+	virtual void* getData() { return nullptr; };
+	virtual void loadData(void *) {};
+};

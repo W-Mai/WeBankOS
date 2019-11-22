@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\DataContainers">
+      <UniqueIdentifier>{fae0ebb3-e5b7-4c75-bfb6-4918e1e9a7f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Managers">
+      <UniqueIdentifier>{9c515366-686f-461e-b3a0-2f2c45e569d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\XData">
+      <UniqueIdentifier>{0a35f0af-c97e-4bd0-b653-0929c5a1fc9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\DataContainers">
+      <UniqueIdentifier>{912d6acf-e04f-4a6e-bd2a-30df01d09c0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Managers">
+      <UniqueIdentifier>{91f68031-c19e-4bf5-92aa-76fc1b5a5277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\XData">
+      <UniqueIdentifier>{ac3af570-02ae-4455-a7e7-0297eb2dc189}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WeBankOS.cpp">
@@ -21,26 +39,26 @@
     <ClCompile Include="Main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="XData\XData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DataContainer\ICCard.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="DataContainer\WeUser.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Managers\FileManager.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Managers\FundsManager.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Managers\ICCardsManager.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Managers\UserManager.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="DataContainer\ICCard.cpp">
+      <Filter>源文件\DataContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="DataContainer\WeUser.cpp">
+      <Filter>源文件\DataContainers</Filter>
+    </ClCompile>
+    <ClCompile Include="XData\XData.cpp">
+      <Filter>源文件\XData</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,26 +68,26 @@
     <ClInclude Include="FileGroup.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="XData\XData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="DataContainer\ICCard.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Managers\FileManager.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Managers\FundsManager.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Managers\ICCardsManager.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Managers\UserManager.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="DataContainer\ICCard.h">
+      <Filter>头文件\DataContainers</Filter>
     </ClInclude>
     <ClInclude Include="DataContainer\WeUser.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\DataContainers</Filter>
+    </ClInclude>
+    <ClInclude Include="XData\XData.h">
+      <Filter>头文件\XData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
