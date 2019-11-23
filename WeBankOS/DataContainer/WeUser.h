@@ -6,7 +6,10 @@
 #include "../XData/XData.h"
 #include "../Managers/FundsManager.h"
 
+class ReceiptAndDisbursement;
+
 using namespace std;
+typedef string AccountType;
 
 class WeUser: virtual public DataPack {
 private :

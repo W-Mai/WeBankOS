@@ -12,7 +12,7 @@ class UserManager {
 private:
 	vector<WeUser*> WeUsers;
 	vector<WeUser*>::iterator searchUser(string ID);
-	
+
 public:
 	bool registerUser(WeUser* usr);
 	bool registerUser(string name, string ID, bool gender, int age, string TEL);
@@ -21,4 +21,3 @@ public:
 
 	WeUser* verifyUser(string ID, string password);
 };
-

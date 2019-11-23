@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include "../XData/XData.h"
+#include "../DataContainer/ICCard.h"
+#include "ICCardsManager.h"
 
 class WeUser;
 class ICCard;
@@ -33,7 +35,7 @@ public:
 	size_t getSize() {//返回数据大小
 		return STRLENTH + sizeof(amount) + sizeof(optime);
 	}
-	void loadData(void * data) {
+	void loadData(void* data) {
 		char* str;
 		str = new char[STRLENTH];
 		memcpy(str, data, STRLENTH);
@@ -44,16 +46,18 @@ public:
 };
 
 class FundsManager {
-
+	ICCardsManager* icCardsManger;
 public:
+	FundsManager(ICCardsManager* iccrdmnger);
+
 	ICCard* verifyICCard(AccountType account, string password);
 	void registerICCard(WeUser* usr, string password);
 	void cancelICCard(WeUser* usr, ICCard* card);
 
-	void withdrawCash(ICCard* card, int amount);
+	bool withdrawCash(ICCard* card, int amount);
 	void depositCash(ICCard* card, int amount);
 
-	void showReceiptsAndDisbursementsDetails(WeUser* usr);
+	vector<ReceiptAndDisbursement*>& getReceiptsAndDisbursementsDetails(WeUser* usr);
 	double queryBalance(ICCard* card);
 };
 

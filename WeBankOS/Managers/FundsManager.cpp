@@ -1,20 +1,29 @@
 #include "FundsManager.h"
 
 
-ICCard* FundsManager::verifyICCard(AccountType account, string password) {
-	// TODO: 在此处插入 return 语句
-	return nullptr;
+FundsManager::FundsManager(ICCardsManager* iccrdmnger) {
+	this->icCardsManger = iccrdmnger;
 }
 
-void FundsManager::registerICCard(WeUser* usr, string password) {}
+ICCard* FundsManager::verifyICCard(AccountType account, string password) {
+	return icCardsManger->verifyICCard(account, password);
+}
 
-void FundsManager::cancelICCard(WeUser* usr, ICCard* card) {}
+void FundsManager::registerICCard(WeUser* usr, string password) {
+	icCardsManger->addCard(usr, password);
+}
 
-void FundsManager::withdrawCash(ICCard* card, int amount) {}
+void FundsManager::cancelICCard(WeUser* usr, ICCard* card) {
+	if (icCardsManger->delCard(card)) {
+		search(usr->cards.begin(), usr->cards.end(), [&card](AccountType tmpCard) {return tmpCard == card->account; });
+	}
+}
+
+bool FundsManager::withdrawCash(ICCard* card, int amount) {}
 
 void FundsManager::depositCash(ICCard* card, int amount) {}
 
-void FundsManager::showReceiptsAndDisbursementsDetails(WeUser* usr) {}
+vector<ReceiptAndDisbursement*>& FundsManager::getReceiptsAndDisbursementsDetails(WeUser* usr) {}
 
 double FundsManager::queryBalance(ICCard* card) {
 	return 0.0f;

@@ -6,12 +6,13 @@
 #include <sstream>
 #include <iomanip>
 
-#include "../Managers/FundsManager.h"
 #include "../DataContainer/ICCard.h"
 #include "../DataContainer/WeUser.h"
+
 class WeUser;
 class ICCard;
 
+typedef string AccountType;
 #define CARDPREFIX "621226101000"
 
 using namespace std;
