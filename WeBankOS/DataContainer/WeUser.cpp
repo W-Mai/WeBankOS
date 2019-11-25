@@ -5,21 +5,21 @@ size_t WeUser::getSize() {
 }
 
 void* WeUser::getData() {
-	data.push((char*)name.c_str(), name.size() + 1);
-	data.push((char*)ID.c_str(), ID.size() + 1);
-	data.push((char*)password.c_str(), password.size() + 1);
+	data.push(const_cast<char*>(name.c_str()), name.size() + 1);
+	data.push(const_cast<char*>(ID.c_str()), ID.size() + 1);
+	data.push(const_cast<char*>(password.c_str()), password.size() + 1);
 	data.push(&gender, sizeof(gender));
 	data.push(&age, sizeof(age));
-	data.push((char*)TEL.c_str(), TEL.size() + 1);
+	data.push(const_cast<char*>(TEL.c_str()), TEL.size() + 1);
 	
 	XData cardsData;
-	for (auto it = cards.begin(); it != cards.end();it++) {
-		cardsData.push((char *)(*it).c_str(), (*it).size());
+	for (auto it = cards.begin(); it != cards.end();++it) {
+		cardsData.push(const_cast<char *>((*it).c_str()), (*it).size());
 	}
 	data.push(cardsData, cardsData.size());
 
 	XData receiptAndDisbursementsData;
-	for (auto it = receiptAndDisbursements.begin(); it != receiptAndDisbursements.end(); it++) {
+	for (auto it = receiptAndDisbursements.begin(); it != receiptAndDisbursements.end(); ++it) {
 		receiptAndDisbursementsData.push((*it)->getData(), (*it)->getSize());
 	}
 	data.push(receiptAndDisbursementsData, receiptAndDisbursementsData.size());
@@ -39,9 +39,9 @@ void WeUser::loadData(void* packData) {
 	GETSTRING(password);data.next();
 
 	data.get(&str);data.next();
-	gender = *(bool *)str;
+	gender = *reinterpret_cast<bool *>(str);
 	data.get(&str);data.next();
-	age = *(int*)str;
+	age = *reinterpret_cast<int*>(str);
 	GETSTRING(TEL);data.next();
 
 	data.get(&str);
@@ -56,7 +56,7 @@ void WeUser::loadData(void* packData) {
 	XData receiptAndDisbursementsData(str, -1);
 	do {
 		receiptAndDisbursementsData.get(&str);
-		ReceiptAndDisbursement *tmpReceiptAndDisbursement = new ReceiptAndDisbursement;
+		auto tmpReceiptAndDisbursement = new ReceiptAndDisbursement;
 		tmpReceiptAndDisbursement->loadData(str);
 		receiptAndDisbursements.push_back(tmpReceiptAndDisbursement);
 	} while (receiptAndDisbursementsData.next() != FAILED);

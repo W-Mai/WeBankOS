@@ -159,6 +159,7 @@
     <ClCompile Include="Managers\FundsManager.cpp" />
     <ClCompile Include="Managers\ICCardsManager.cpp" />
     <ClCompile Include="Managers\UserManager.cpp" />
+    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WeBankOS.cpp" />
     <ClCompile Include="XData\XData.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="Managers\FundsManager.h" />
     <ClInclude Include="Managers\ICCardsManager.h" />
     <ClInclude Include="Managers\UserManager.h" />
+    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="WeBankOS.h" />
     <ClInclude Include="XData\XData.h" />
   </ItemGroup>

@@ -11,7 +11,7 @@ class ReceiptAndDisbursement;
 using namespace std;
 typedef string AccountType;
 
-class WeUser: virtual public DataPack {
+class WeUser{
 private :
 	XData data;
 public:
