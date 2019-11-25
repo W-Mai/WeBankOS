@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "FileGroup.h"
+#include <corecrt_io.h>
 
 WeBankOS g_WeBankOS;
 
@@ -10,7 +11,7 @@ void unitTest() {
 
 	usr.age = 19;
 
-	usr.gender = 1;
+	usr.gender = true;
 	usr.ID = "41045281999112365556";
 	usr.name = "W-Mai";
 	usr.password = "Xbn";
@@ -22,6 +23,7 @@ void unitTest() {
 
 	usr2.loadData(usr.getData());
 
+	usr2.name = "X_Tu";
 	cout << usr2.age << endl;
 	cout << usr2.gender << endl;
 	cout << usr2.ID << endl;
@@ -36,8 +38,8 @@ void unitTest() {
 	cout << usrmnger.registerUser(&usr) << endl;
 	cout << usrmnger.registerUser(&usr2) << endl;
 	cout << usrmnger.registerUser(&usr2) << endl;
-	usrmnger.cancelUser(&usr2);
-	usrmnger.cancelUser(&usr2);
+	//usrmnger.cancelUser(&usr2);
+	//usrmnger.cancelUser(&usr2);
 	cout << usrmnger.registerUser(&usr2) << endl;
 
 	cout << "Verify: " << usrmnger.verifyUser("23333333333333", "Xbn") << endl;
@@ -45,7 +47,7 @@ void unitTest() {
 
 	stringstream ss;
 	string s = "123456789";
-	int a;
+
 	//cout << string(s.begin() + 5, s.end()) << endl;
 	//ss << 123;
 	//ss >> a;
@@ -77,11 +79,50 @@ void unitTest() {
 		/*cout << (*icdmnger.searchCard(x))->password << endl;*/
 
 	}
+
+	FileManager fm(".");
+
+	fm.savedData(&usrmnger);
+}
+
+vector<string>* fileSearch(string path) {
+	long hFile = 0;
+	auto rtn = new vector<string>;
+	struct _finddata_t fileInfo;
+	string pathName;
+	
+	if ((hFile = _findfirst(pathName.assign(path).append("/*").c_str(), &fileInfo)) == -1)
+		return rtn;
+	do {
+		/*
+			_A_SUBDIR 表示文件夹属性;
+		*/
+		if (strcmp(fileInfo.name, "..") && strcmp(fileInfo.name, "."))
+			rtn->push_back(fileInfo.name);
+	} while (_findnext(hFile, &fileInfo) == 0);
+
+	_findclose(hFile);
+	return rtn;
 }
 
 int main() {
-	unitTest();
+	//unitTest();
+	for(auto x: *fileSearch("./Data/Users")) {
+		cout << x << endl;
+	}
+	//struct Data {
+	//	string name;
+	//	int card;
+	//};
+	//
+	//struct Node {
+	//	Data data;
+	//	Node* next;
+	//};
 
+	//Node* result=search(Head, val);
+
+	//result->data = newdata;
 	g_WeBankOS.run();
 	return 0;
 }
