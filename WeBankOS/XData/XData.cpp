@@ -1,4 +1,5 @@
 #include "XData.h"
+#include <algorithm>
 
 //#define DEBUG
 
@@ -11,10 +12,11 @@ XData::XData() {
 }
 
 XData::XData(void * data, size_t size) {
-	size_t tmpS;
+	size_t tmpS = 0;
 	size_t tmpCount = 0;
 	size_t tmpSize = 0;
 	char * tmpData;
+	S = 0;
 	DE(0)
 		if (!data || !size) return;/*指针为NULL 或者size为NULL*/
 	DE(1)
@@ -30,7 +32,8 @@ XData::XData(void * data, size_t size) {
 			std::cout << tmpSize << " " << tmpCount << std::endl;
 		#endif // DEBUG
 
-			tmpData = new char[tmpSize + LEADSIZE];
+			tmpData = new char[tmpSize];
+			std::fill(tmpData, tmpData + tmpSize + LEADSIZE, 0);
 			memcpy(tmpData
 				   , (char *)data + tmpCount + LEADSIZE
 				   , tmpSize
@@ -77,10 +80,10 @@ size_t XData::next() {
 		gIt++;
 		if (gIt != datas.end()) {
 			return (*(gIt-1)).second;
-		} else {
-			return FAILED;
 		}
-	} else if (type == CFILESTREAM) {
+		return FAILED;
+	}
+	if (type == CFILESTREAM) {
 
 	}
 	return size_t(FAILED);
@@ -94,6 +97,12 @@ size_t XData::get(void* des) {/*返回当前指针指向的数据包大小	des为数据指针地址*/
 	ElementType_T tmp = datas.empty() ? ElementType_T{ new char[4]{0},0 } : *gIt;
 	*(char**)des = tmp.first;
 	return tmp.second;
+}
+
+void XData::clear() {
+	datas.clear();
+	S = 0;
+	rewind();
 }
 
 XData::operator void*() {/*返回整个数据包的内容*/

@@ -43,7 +43,7 @@ public:
 	size_t next();
 	size_t size();/*返回数据包大小*/
 	size_t get(void *des);/*返回当前指针指向的数据包大小	des为数据指针地址*/
-	
+	void clear();
 	operator void*();/*返回整个数据包的内容*/
 	
 	~XData();
