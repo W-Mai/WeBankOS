@@ -20,6 +20,7 @@ bool WeBankOS::Functions::callFunction(const string& name) {
 	return false;
 }
 
+// ReSharper disable CppMemberFunctionMayBeConst
 void WeBankOS::printPrompt() {
 	setTextColor(0x02);
 	cout << getUserName();
@@ -60,12 +61,33 @@ void WeBankOS::init() const {
 
 	//Register all the functions BEGIN.
 	functions->registerFunction("login", static_cast<FunctionType>(&WeBankOS::login));
+	functions->registerFunction("logout", static_cast<FunctionType>(&WeBankOS::logout));
+	functions->registerFunction("register", static_cast<FunctionType>(&WeBankOS::registerUser));
 	functions->registerFunction("exit", static_cast<FunctionType>(&WeBankOS::exitOS));
 	functions->registerFunction("q", static_cast<FunctionType>(&WeBankOS::exitOS));
 	functions->registerFunction("help", static_cast<FunctionType>(&WeBankOS::help));
 	functions->registerFunction("load_conf", static_cast<FunctionType>(&WeBankOS::loadConfigurations));
 	//Register all the functions END.
 
+
+	functions->callFunction("load_conf");
+}
+
+void WeBankOS::help() {
+	setTextColor(HIGHLIGHT_COLOR);
+	cout << endl;
+
+	//Register all the Help_Info BEGIN.
+	showOneItemOfHelp("help", "to show the help of this OS.");
+	showOneItemOfHelp("q,exit", "exit this OS.");
+	showOneItemOfHelp("login", "usage: \"login ID password\" to login your account.");
+	showOneItemOfHelp("logout", "login out your account.");
+	showOneItemOfHelp("register", "register a new user step by step.");
+	showOneItemOfHelp("load_conf", "load all the configurations.");
+	//Register all the Help_Info END.
+
+	cout << endl;
+	setTextColor(0x0F);
 }
 
 void WeBankOS::run() {
@@ -79,12 +101,52 @@ void WeBankOS::run() {
 			setTextColor(0x0F);
 		}
 	} else exitOS();
+
+	//currentFunction = "HOMEPAGE";
 }
 
 void WeBankOS::login() {
+	if (loggedUser) {
+		showSomeInfo("	You have been Logged in before. Please logged out first.");
+		cin.ignore(1024,'\n');
+		return;
+	}
+	currentFunction = "LOGGED";
+	
 	string name, password;
 	cin >> name >> password;
-	cout << "Welcome " << name << endl;
+	loggedUser = userManager.verifyUser(name, password);
+	if (loggedUser) {
+		showSomeInfo("	Welcome " + getUserName() + ". Logged In Successfully.");
+	} else {
+		currentFunction = "HOMEPAGE";
+		showSomeInfo("	Logged Failed. Please check your ID or Password.");
+	}
+}
+
+void WeBankOS::logout() {
+	if (!loggedUser) {
+		showSomeInfo("	You haven't Logged in before. Please logged in first.");
+		cin.ignore(1024, '\n');
+		return;
+	}
+
+	showSomeInfo("	" + getUserName() + ".Logout successfully.");
+
+	delete loggedUser;
+	loggedUser = nullptr;
+	currentFunction = "HOMEPAGE";
+}
+
+void WeBankOS::registerUser() {
+/*	if (!loggedUser) {
+		showErrorInfo("\tNo Permission. Please LOGIN first.");
+		return;
+	}*/ 
+
+	currentFunction = "LOGIN";
+
+	
 }
 
 void WeBankOS::loadConfigurations() {
@@ -103,31 +165,26 @@ void WeBankOS::exitOS() {
 	setTextColor(0x0F);
 }
 
+void WeBankOS::showSomeInfo(const string& errorInfo) {
+	setTextColor(HIGHLIGHT_COLOR);
+	cout << endl  << errorInfo << endl << endl;
+	setTextColor(0x0F);
+}
+
 string WeBankOS::getUserName() const {
 	return loggedUser ? loggedUser->name : "Guest";
 }
 
-void WeBankOS::help() {
-	setTextColor(HIGHLIGHT_COLOR);
-	cout << endl;
-	
-	showOneItemOfHelp("help", "to show the help of this OS.");
-	showOneItemOfHelp("q,exit", "exit this OS.");
-	showOneItemOfHelp("login", "usage: \"login username password\" to login your account.");
-	showOneItemOfHelp("load_conf", "load all the configurations.");
-	
-	cout << endl;
-	setTextColor(0x0F);
-}
 
 /**
- * \brief 
+ * \brief
  * \param cmd the command you want to show;
  * \param description the description of this command;
  */
+// ReSharper disable once CppMemberFunctionMayBeStatic
 void WeBankOS::showOneItemOfHelp(const string& cmd, const string& description) {
 	setTextColor(HIGHLIGHT_COLOR);
-	cout << "\t" << cmd <<"\t";
+	cout << "    " << cmd << "\t";
 	setTextColor(0x09);
 	cout << description << endl;
 	setTextColor(0x0F);

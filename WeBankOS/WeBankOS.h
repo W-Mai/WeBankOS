@@ -30,8 +30,12 @@ class WeBankOS {
 	void printPrompt();
 	static void setTextColor(char color);
 	void exitOS();
+	void showSomeInfo(const string& errorInfo);
+	
 	string getUserName() const;
 	void login();
+	void logout();
+	void registerUser();
 
 	void loadConfigurations();
 	

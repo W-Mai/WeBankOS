@@ -17,6 +17,5 @@ public:
 
 	void savedData(UserManager* userManager) const;
 	void savedData(ICCardsManager* icCardsManager);
-
 };
 

@@ -75,7 +75,7 @@ void FileManager::loadData(ICCardsManager* icCardsManager) {
 			fs.read(buffer, cardSize);
 			tempCard->loadData(buffer);
 			cards->push_back(tempCard);
-			cout << "#### " << tempCard->account << endl;
+			//cout << "#### " << tempCard->account << endl;
 			delete[] buffer;
 		}
 		fs.close();
