@@ -16,6 +16,7 @@ class WeBankOS {
 		void registerFunction(const string& name, FunctionType func);
 		bool callFunction(const string& name);
 	};
+	
 	Functions* functions;
 
 	bool running;
@@ -37,8 +38,10 @@ class WeBankOS {
 	void logout();
 	void registerUser();
 
+	void calcBigNum();
 	void loadConfigurations();
-	
+
+	void clearScreen();
 	void help();
 	void showOneItemOfHelp(const string& cmd, const string& description);
 public:

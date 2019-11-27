@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BigCalc.cpp" />
     <ClCompile Include="DataContainer\ICCard.cpp" />
     <ClCompile Include="DataContainer\WeUser.cpp" />
     <ClCompile Include="Main.cpp" />

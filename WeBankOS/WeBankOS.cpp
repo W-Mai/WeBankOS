@@ -2,6 +2,8 @@
 #include "WeBankOS.h"
 #include <windows.h>
 
+std::string add(const std::string a, const std::string b);
+std::string sub(const std::string a, const std::string b);
 
 WeBankOS::Functions::Functions(WeBankOS* p) {
 	os = p;
@@ -42,6 +44,8 @@ void WeBankOS::setTextColor(const char color) {
 }
 
 WeBankOS::WeBankOS(const string& dataFilePath) {
+	system("mode con cols=80 lines=10240");
+
 	functions = new Functions(this);
 
 	fundsManager = nullptr;
@@ -67,6 +71,9 @@ void WeBankOS::init() const {
 	functions->registerFunction("q", static_cast<FunctionType>(&WeBankOS::exitOS));
 	functions->registerFunction("help", static_cast<FunctionType>(&WeBankOS::help));
 	functions->registerFunction("load_conf", static_cast<FunctionType>(&WeBankOS::loadConfigurations));
+	functions->registerFunction("cls", static_cast<FunctionType>(&WeBankOS::clearScreen));
+	functions->registerFunction("calc", static_cast<FunctionType>(&WeBankOS::calcBigNum));
+
 	//Register all the functions END.
 
 
@@ -78,12 +85,15 @@ void WeBankOS::help() {
 	cout << endl;
 
 	//Register all the Help_Info BEGIN.
-	showOneItemOfHelp("help", "to show the help of this OS.");
+	showOneItemOfHelp("cls", "	clear screen.");
 	showOneItemOfHelp("q,exit", "exit this OS.");
 	showOneItemOfHelp("login", "usage: \"login ID password\" to login your account.");
+	showOneItemOfHelp("help", "to show the help of this OS.");
 	showOneItemOfHelp("logout", "login out your account.");
 	showOneItemOfHelp("register", "register a new user step by step.");
 	showOneItemOfHelp("load_conf", "load all the configurations.");
+	showOneItemOfHelp("calc", "calc big number(only + and - support).");
+
 	//Register all the Help_Info END.
 
 	cout << endl;
@@ -108,11 +118,11 @@ void WeBankOS::run() {
 void WeBankOS::login() {
 	if (loggedUser) {
 		showSomeInfo("	You have been Logged in before. Please logged out first.");
-		cin.ignore(1024,'\n');
+		cin.ignore(1024, '\n');
 		return;
 	}
 	currentFunction = "LOGGED";
-	
+
 	string name, password;
 	cin >> name >> password;
 	loggedUser = userManager.verifyUser(name, password);
@@ -142,16 +152,30 @@ void WeBankOS::registerUser() {
 /*	if (!loggedUser) {
 		showErrorInfo("\tNo Permission. Please LOGIN first.");
 		return;
-	}*/ 
+	}*/
 
 	currentFunction = "LOGIN";
 
-	
+
+}
+
+void WeBankOS::calcBigNum() {
+	string num1, op, num2;
+	cin >> num1 >> op >> num2;
+	if (op == "+") {
+		cout << add(num1, num2) << endl;
+	} else if (op == "-") {
+		cout << sub(num1, num2) << endl;
+	} else { showSomeInfo("	Bad Operator: Only support + and -."); }
 }
 
 void WeBankOS::loadConfigurations() {
 	fileManager->loadData(&userManager);
 	fileManager->loadData(&icCardsManager);
+}
+
+void WeBankOS::clearScreen() {
+	system("cls");
 }
 
 bool WeBankOS::isRunning() const {
@@ -167,14 +191,13 @@ void WeBankOS::exitOS() {
 
 void WeBankOS::showSomeInfo(const string& errorInfo) {
 	setTextColor(HIGHLIGHT_COLOR);
-	cout << endl  << errorInfo << endl << endl;
+	cout << endl << errorInfo << endl << endl;
 	setTextColor(0x0F);
 }
 
 string WeBankOS::getUserName() const {
 	return loggedUser ? loggedUser->name : "Guest";
 }
-
 
 /**
  * \brief
