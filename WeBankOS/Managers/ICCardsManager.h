@@ -16,8 +16,8 @@ constexpr auto CARDPREFIX = "621226101000";
 using namespace std;
 
 class ICCardsManager {
-	vector<ICCard*> icCards;
 public:
+	vector<ICCard*> icCards;
 	void addCard(WeUser* usr, const string& password);
 	bool delCard(ICCard* card);
 	vector<ICCard*>::iterator searchCard(AccountType account);

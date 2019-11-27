@@ -28,7 +28,6 @@ class XData;
 
 #include "./XData/XData.h"
 
-#include "WeBankOS.h"
 
 #include "./Managers/ICCardsManager.h"
 #include "./Managers/FundsManager.h"

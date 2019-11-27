@@ -2,9 +2,21 @@
 #include <fstream>
 #include <io.h>
 #include <sstream>
+#include <direct.h>
 
+void FileManager::completeDirectors() const {
+	if (_access((mainFilePath + DATA_PATH).c_str(), 0)) {
+		_mkdir((mainFilePath +DATA_PATH).c_str());
+	}
+	if (_access((mainFilePath + WEUSERS_PATH).c_str(), 0)) {
+		_mkdir((mainFilePath + WEUSERS_PATH).c_str());
+	}
+	if (_access((mainFilePath + ICCARD_PATH).c_str(), 0)) {
+		_mkdir((mainFilePath + ICCARD_PATH).c_str());
+	}
+}
 
-vector<string>* fileSearch(string path) {
+vector<string>* FileManager::fileSearch(string path) {
 	long hFile = 0;
 	auto rtn = new vector<string>;
 	struct _finddata_t fileInfo;
@@ -27,14 +39,15 @@ vector<string>* fileSearch(string path) {
 
 FileManager::FileManager(const string& mainDir) {
 	mainFilePath = mainDir;
+	completeDirectors();
 }
 void FileManager::loadData(UserManager* userManager) {
 	fstream fs;
-	auto users = userManager->weUsers;
-	auto fileList = fileSearch(mainFilePath + "/Data/Users/");
+	auto users = &userManager->weUsers;
+	auto fileList = fileSearch(mainFilePath + WEUSERS_PATH);
 	
-	for (auto fileName:*fileList) {
-		fs.open(mainFilePath + "/Data/Users/" + fileName, ios::in | ios::binary);
+	for (const auto& fileName:*fileList) {
+		fs.open(mainFilePath + WEUSERS_PATH"/" + fileName, ios::in | ios::binary);
 		if (fs) {
 			size_t fileSize;
 			fs.read(reinterpret_cast<char*>(&fileSize), sizeof(fileSize));
@@ -44,28 +57,53 @@ void FileManager::loadData(UserManager* userManager) {
 			fs.read(buffer + sizeof(fileSize), fileSize);
 			auto tmpUser = new WeUser;
 			tmpUser->loadData(buffer);
-			users.push_back(tmpUser);
-			delete buffer;
+			users->push_back(tmpUser);
+			delete[] buffer;
 			fs.close();
 		}
-
 	}
 }
-void FileManager::loadData(ICCardsManager* icCardsManager) {}
-void FileManager::loadData(FundsManager* fundsManager) {}
+void FileManager::loadData(ICCardsManager* icCardsManager) {
+	fstream fs;
+	fs.open(mainFilePath + ICCARD_PATH"/" + "ICCards.icard", ios::in | ios::binary);
+	if (fs) {
+		auto cards = &icCardsManager->icCards;
+		const auto cardSize = ICCard().getSize();
+		while(fs.peek(), !fs.eof()) {
+			auto buffer = new char[cardSize];
+			auto tempCard = new ICCard;
+			fs.read(buffer, cardSize);
+			tempCard->loadData(buffer);
+			cards->push_back(tempCard);
+			cout << "#### " << tempCard->account << endl;
+			delete[] buffer;
+		}
+		fs.close();
+	}
+}
+
 void FileManager::savedData(UserManager* userManager) const {
 	fstream fs;
+
 	auto users = userManager->weUsers;
 	for (auto it = users.begin();it!=users.end();++it) {
 		auto tmpUser = *it;
-		fs.open(mainFilePath + "/Data/Users/" + tmpUser->name, ios::out | ios::binary);
+		fs.open(mainFilePath + WEUSERS_PATH"/" + tmpUser->name, ios::out | ios::binary);
 		tmpUser->getData();
-		fs.write((char*)tmpUser->getData(), tmpUser->getSize());
+		fs.write(static_cast<char*>(tmpUser->getData()), tmpUser->getSize());
 		fs.close();
 	}
 }
 void FileManager::savedData(ICCardsManager* icCardsManager) {
-	
+	fstream fs;
+	fs.open(mainFilePath + ICCARD_PATH"/" + "ICCards.icard", ios::out | ios::binary);
+	if (fs) {
+		auto cards = icCardsManager->icCards;
+		for (auto it : cards) {
+			fs.write(static_cast<char*>(it->getData()), it->getSize());
+		}
+		fs.close();
+	}
 }
-void FileManager::savedData(FundsManager* fundsManager) {}
+
 

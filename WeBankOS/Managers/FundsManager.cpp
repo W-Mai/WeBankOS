@@ -3,14 +3,12 @@
 #include <algorithm>
 #include "../TimeUtils.h"
 
-ReceiptAndDisbursement::~ReceiptAndDisbursement() = default;
-
 void* ReceiptAndDisbursement::getData() {
 	//将结构体数据转化为void*便于存储
 	char* rtn = new char[getSize()];
 	memcpy(rtn, const_cast<char*>(account.c_str()), STRLENTH);
 	memcpy(rtn + STRLENTH, &amount, sizeof(amount));
-	memcpy(rtn + STRLENTH + sizeof(optime), &optime, sizeof(optime));
+	memcpy(rtn + STRLENTH + sizeof(opTime), &opTime, sizeof(opTime));
 
 	rtn[STRLENTH - 1] = '\0';
 
@@ -19,7 +17,7 @@ void* ReceiptAndDisbursement::getData() {
 
 size_t ReceiptAndDisbursement::getSize()  {
 	//返回数据大小
-	return STRLENTH + sizeof(amount) + sizeof(optime);
+	return STRLENTH + sizeof(amount) + sizeof(opTime);
 }
 
 void ReceiptAndDisbursement::loadData(void* data) {
@@ -28,7 +26,7 @@ void ReceiptAndDisbursement::loadData(void* data) {
 	memcpy(str, data, STRLENTH);
 	account = str;
 	memcpy(&amount, static_cast<char*>(data) + STRLENTH, sizeof(amount));
-	memcpy(&optime, static_cast<char*>(data) + STRLENTH + sizeof(amount), sizeof(optime));
+	memcpy(&opTime, static_cast<char*>(data) + STRLENTH + sizeof(amount), sizeof(opTime));
 }
 
 ReceiptAndDisbursement* FundsManager::addReceiptsAndDisbursementsRecord(ICCard* card, const int amount) {
@@ -36,8 +34,8 @@ ReceiptAndDisbursement* FundsManager::addReceiptsAndDisbursementsRecord(ICCard* 
 		card->balance -= amount;
 		auto rtn = new ReceiptAndDisbursement;
 		rtn->account = card->account;
-		rtn->amount = amount;
-		rtn->optime = TimeUtils::getTimeStamp();
+		rtn->amount = -amount;
+		rtn->opTime = TimeUtils::getTimeStamp();
 		return rtn;
 	}
 	return nullptr;
@@ -78,10 +76,9 @@ bool FundsManager::cancelICCard(ICCard * card) const {
 }
 
 bool FundsManager::withdrawCash( ICCard * card, const int amount) {
-	const auto tmpReceiptsAndDisbursementsRecord = addReceiptsAndDisbursementsRecord(card, amount);
-	if (tmpReceiptsAndDisbursementsRecord) {
-		usr->receiptAndDisbursements.push_back(tmpReceiptsAndDisbursementsRecord);
-	}
+	ReceiptAndDisbursement* tmpReceiptsAndDisbursementsRecord = addReceiptsAndDisbursementsRecord(card, amount);
+	if (tmpReceiptsAndDisbursementsRecord) 
+		this->usr->receiptAndDisbursements.push_back(tmpReceiptsAndDisbursementsRecord);
 	return true;
 }
 

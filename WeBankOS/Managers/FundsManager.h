@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma pack(1)
 //#include "../FileGroup.h"
 
 #include <string>
@@ -9,29 +8,9 @@
 #include "../DataContainer/WeUser.h"
 #include "ICCardsManager.h"
 
-class ICCardsManager;
-class WeUser;
-class ICCard;
-
 using namespace std;
 
-typedef string AccountType;
 #define STRLENTH 21
-
-class ReceiptAndDisbursement{
-public:
-	AccountType account;
-	int amount;
-	time_t optime;
-
-	virtual ~ReceiptAndDisbursement();
-
-	void* getData();
-
-	size_t getSize();
-
-	void loadData(void* data);
-};
 
 class FundsManager {
 	ICCardsManager* icCardsManger;
@@ -40,7 +19,7 @@ class FundsManager {
 public:
 	FundsManager(ICCardsManager* icCardManager, WeUser* usr);
 
-	ICCard* verifyICCard(const AccountType& account, const string password) const;
+	[[nodiscard]] ICCard* verifyICCard(const AccountType& account, const string password) const;
 	void registerICCard(const string& password) const;
 	bool cancelICCard( ICCard* card) const;
 
@@ -50,5 +29,3 @@ public:
 	vector<ReceiptAndDisbursement*>& getReceiptsAndDisbursementsDetails();
 	double queryBalance(ICCard* card);
 };
-
-#pragma pack()

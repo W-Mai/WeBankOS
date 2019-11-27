@@ -1,10 +1,4 @@
-#include <iostream>
-#include <sstream>
-#include "FileGroup.h"
-#include <corecrt_io.h>
-
-WeBankOS g_WeBankOS;
-
+#include "WeBankOS.h"
 
 void unitTest() {
 	WeUser usr;
@@ -51,9 +45,6 @@ void unitTest() {
 	cout << "Verify: " << usrmnger.verifyUser("23333333333333", "Xbn") << endl;
 
 
-	stringstream ss;
-	string s = "123456789";
-
 	//cout << string(s.begin() + 5, s.end()) << endl;
 	//ss << 123;
 	//ss >> a;
@@ -78,50 +69,56 @@ void unitTest() {
 
 	auto card = *icdmnger->searchCard(CARDPREFIX + string("00000007"));
 
-	/*cout << icdmnger.verifyICCard(CARDPREFIX + string("00000007"), "1234")->host << endl;*/
-	//cout << usr.getSize() << endl;
-	FundsManager fundsManager(icdmnger, &usr);
-	//for (auto x : usr.cards) {
-	//	//cout << x << endl;
-	//	cout << fundsManager.verifyICCard(x, "1234")->host << endl;
-	//	/*cout << (*icdmnger.searchCard(x))->password << endl;*/
+	///*cout << icdmnger.verifyICCard(CARDPREFIX + string("00000007"), "1234")->host << endl;*/
+	////cout << usr.getSize() << endl;
+	//usr.receiptAndDisbursements.push_back(nullptr);
 
-	//}
+	FundsManager fundsManager0(icdmnger, &usr);
+
+	cout << card->balance << endl;
+	
+	fundsManager0.depositCash(card, 100);
+	fundsManager0.withdrawCash(card, 20);
+
+	cout << card->balance << endl;
+	
+	auto usrmnger2 = new UserManager;
+	auto icdmnger2 = new ICCardsManager;
 	FileManager fm(".");
 	fm.savedData(&usrmnger);
-	fm.loadData(&usrmnger);
-
-	for (auto u:usrmnger.weUsers) {
+	fm.loadData(usrmnger2);
+	fm.savedData(icdmnger);
+	fm.loadData(icdmnger2);
+	for (auto u : usrmnger2->weUsers) {
 		cout << u->name << " "
 			<< u->ID << " "
 			<< u->age << endl;
 		cout << "CARDS: \n";
-		for (auto c:u->cards) {
+		for (auto c : u->cards) {
 			cout << "	$$" << c << endl;
 		}
 	}
+	
+	FundsManager fundsManager(icdmnger2, &usr);
+	for (auto x : usr.cards) {
+		//cout << x << endl;
+		cout << fundsManager.verifyICCard(x, "1234")->host << endl;
+		/*cout << (*icdmnger.searchCard(x))->password << endl;*/
+	}
+	for (auto r : fundsManager.getReceiptsAndDisbursementsDetails()) {
+		cout << r->account << " "
+			<< r->amount << " "
+			<< r->opTime << endl;
+	}
+
 }
 
-
-
 int main() {
-	unitTest();
-	//for(const auto& x: *fileSearch("./Data/Users")) {
-	//	cout << x << endl;
-	//}
-	//struct Data {
-	//	string name;
-	//	int card;
-	//};
-	//
-	//struct Node {
-	//	Data data;
-	//	Node* next;
-	//};
+	auto os = new WeBankOS(".");
 
-	//Node* result=search(Head, val);
-
-	//result->data = newdata;
-	g_WeBankOS.run();
+	while (os->isRunning()) {
+		os->run();
+	}
+	delete os;
 	return 0;
 }
