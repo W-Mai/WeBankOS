@@ -10,7 +10,7 @@ using namespace std;
 #define STRLENTH 21
 
 //20λ: 62 1226 101000 + 8λ
-class ICCard : virtual public DataPack{
+class ICCard{
 
 public:
 	string account;

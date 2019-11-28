@@ -60,6 +60,12 @@
     <ClCompile Include="XData\XData.cpp">
       <Filter>源文件\XData</Filter>
     </ClCompile>
+    <ClCompile Include="TimeUtils.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="BigCalc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WeBankOS.h">
@@ -88,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="XData\XData.h">
       <Filter>头文件\XData</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeUtils.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

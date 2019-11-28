@@ -11,7 +11,7 @@
 
 #define PACK(data,size) std::make_pair(data, size)
 #define FAILED -1
-#define PACKLEN(pack) (*(pLead)(void *)pack)
+#define PACKLEN(pack) (*(pLead)(void *)(pack))
 
 typedef size_t Lead;
 typedef Lead * pLead;
@@ -43,7 +43,7 @@ public:
 	size_t next();
 	size_t size();/*返回数据包大小*/
 	size_t get(void *des);/*返回当前指针指向的数据包大小	des为数据指针地址*/
-	
+	void clear();
 	operator void*();/*返回整个数据包的内容*/
 	
 	~XData();
@@ -51,7 +51,7 @@ public:
 
 class DataPack {
 public:
-	virtual size_t getSize() { return size_t(0); };
+	virtual size_t getSize()=0;
 	virtual void* getData() { return nullptr; };
 	virtual void loadData(void *) {};
 };

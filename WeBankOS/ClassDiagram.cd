@@ -1,112 +1,127 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
   <Class Name="FileManager">
-    <Position X="1.25" Y="2.25" Width="1.5" />
+    <Position X="0.5" Y="2.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAEAACABAAAAAEBAAAAAAA=</HashCode>
       <FileName>Managers\FileManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FundsManager">
-    <Position X="6.75" Y="8" Width="4.5" />
+    <Position X="0.5" Y="9.75" Width="6.75" />
     <TypeIdentifier>
-      <HashCode>gAAAAAIAAAAAAEABAAAACAAAAAAAAAgAAAAAAAgAAAA=</HashCode>
+      <HashCode>gAAAAAIRAAAAAEABgAAACAAAAAAAAIAABAAAAAgAAAA=</HashCode>
       <FileName>Managers\FundsManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ICCard">
-    <Position X="7.75" Y="5" Width="1.75" />
+    <Position X="6.75" Y="2.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAIAAAAIAAAAAAAAIAAAAAAAAAAgAQgAAAAA=</HashCode>
+      <HashCode>AAAQABAAAIAAAAIAAAAAAAAIAAAAAAAAAAgAQgAAAAA=</HashCode>
       <FileName>DataContainer\ICCard.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ICCardsManager">
-    <Position X="1" Y="7.25" Width="3.5" />
+    <Position X="0.5" Y="5.25" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAKCA=</HashCode>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKGA=</HashCode>
       <FileName>Managers\ICCardsManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UserManager">
-    <Position X="1" Y="9.25" Width="5.25" />
+    <Position X="0.5" Y="7.25" Width="5.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAABBAAAAA=</HashCode>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAQIAAAAAAABBAAAAA=</HashCode>
       <FileName>Managers\UserManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WeBankOS">
-    <Position X="11.75" Y="8" Width="1.5" />
+    <Position X="11" Y="2.25" Width="5.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="WeBankOS::FunctionType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>WeBankOS.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Class Name="WeBankOS::Functions">
+        <TypeIdentifier>
+          <NewMemberFileName>WeBankOS.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>gKIAAggAABAAAABABgAAAAEghIjCBCIAgAAAABAAEgA=</HashCode>
       <FileName>WeBankOS.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="XData">
-    <Position X="20.5" Y="1.75" Width="2.75" />
+    <Position X="19.75" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAgAAAAAAAEIAAUAAAAAABABACACAIAAKBAAA=</HashCode>
+      <HashCode>AEAAAAQAgAAAAAAAEIAAUAAAAAABABACACAIAAKBAAA=</HashCode>
       <FileName>XData\XData.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ReceiptAndDisbursement">
-    <Position X="10.25" Y="5" Width="2.25" />
+    <Position X="6.75" Y="5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAQACAAAIAAAAAAAAAAAAAAAAAAgAAAAAAAQAAAAAA=</HashCode>
-      <FileName>Managers\FundsManager.h</FileName>
+      <HashCode>AAAQADAAAIAAAAAAAAAAAAAAAAAAgAAAAAAAQAAAAAA=</HashCode>
+      <FileName>DataContainer\WeUser.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DataPack">
-    <Position X="12.25" Y="0.75" Width="1.75" />
+    <Position X="5.5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQABAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>XData\XData.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WeUser" Collapsed="true">
-    <Position X="14" Y="5" Width="1.5" />
+  <Class Name="WeUser">
+    <Position X="7.5" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAASAAAAAIAAwAIEAAgAgAAAAAAEAAAAAAAAAgAAAAA=</HashCode>
+      <HashCode>AAASABAAAIAAwAIAAAgAgAAAAAAEAAAAAAAQAgAAAAA=</HashCode>
       <FileName>DataContainer\WeUser.h</FileName>
     </TypeIdentifier>
   </Class>
   <Typedef Name="Lead" Collapsed="true">
-    <Position X="18.75" Y="3.75" Width="1.5" />
+    <Position X="18" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>XData\XData.h</FileName>
     </TypeIdentifier>
   </Typedef>
   <Typedef Name="pLead" Collapsed="true">
-    <Position X="18.75" Y="1.75" Width="1.5" />
+    <Position X="18" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>XData\XData.h</FileName>
     </TypeIdentifier>
   </Typedef>
   <Typedef Name="DataType_T" Collapsed="true">
-    <Position X="23.5" Y="3" Width="3.75" />
+    <Position X="22.75" Y="5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>XData\XData.h</FileName>
     </TypeIdentifier>
   </Typedef>
   <Typedef Name="LPVOID" Collapsed="true">
-    <Position X="23.5" Y="3.75" Width="1.5" />
+    <Position X="22.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>XData\XData.h</FileName>
     </TypeIdentifier>
   </Typedef>
   <Typedef Name="AccountType" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Managers\FundsManager.h</FileName>
+      <FileName>Managers\ICCardsManager.h</FileName>
     </TypeIdentifier>
   </Typedef>
   <Enum Name="InputType">
-    <Position X="23.5" Y="1.75" Width="1.5" />
+    <Position X="22.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>XData\XData.h</FileName>

@@ -23,7 +23,7 @@
     <ProjectGuid>{2ED5E763-12AD-4ABB-99E4-EF3014EA0DE6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>WeBankOS</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -88,10 +88,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BigCalc.cpp" />
     <ClCompile Include="DataContainer\ICCard.cpp" />
     <ClCompile Include="DataContainer\WeUser.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Managers\FundsManager.cpp" />
     <ClCompile Include="Managers\ICCardsManager.cpp" />
     <ClCompile Include="Managers\UserManager.cpp" />
+    <ClCompile Include="TimeUtils.cpp" />
     <ClCompile Include="WeBankOS.cpp" />
     <ClCompile Include="XData\XData.cpp" />
   </ItemGroup>
@@ -170,6 +172,7 @@
     <ClInclude Include="Managers\FundsManager.h" />
     <ClInclude Include="Managers\ICCardsManager.h" />
     <ClInclude Include="Managers\UserManager.h" />
+    <ClInclude Include="TimeUtils.h" />
     <ClInclude Include="WeBankOS.h" />
     <ClInclude Include="XData\XData.h" />
   </ItemGroup>

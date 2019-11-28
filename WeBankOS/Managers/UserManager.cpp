@@ -1,12 +1,12 @@
 #include "UserManager.h"
 
 vector<WeUser*>::iterator UserManager::searchUser(string ID) {
-	return find_if(WeUsers.begin(), WeUsers.end(), [&ID](WeUser* usr) {return usr->ID == ID; });
+	return find_if(weUsers.begin(), weUsers.end(), [&ID](WeUser* usr) {return usr->ID == ID; });
 }
 
 bool UserManager::registerUser(WeUser* usr) {
-	if (searchUser(usr->ID)==WeUsers.end()) {
-		WeUsers.push_back(usr);
+	if (searchUser(usr->ID)==weUsers.end()) {
+		weUsers.push_back(usr);
 		return true;
 	}
 	return false;
@@ -28,8 +28,8 @@ bool UserManager::cancelUser(WeUser* usr) {
 
 bool UserManager::cancelUser(string ID) {
 	auto rst = searchUser(ID);
-	if (rst != WeUsers.end()) {
-		WeUsers.erase(rst);
+	if (rst != weUsers.end()) {
+		weUsers.erase(rst);
 		return true;
 	}
 	return false;
@@ -37,7 +37,7 @@ bool UserManager::cancelUser(string ID) {
 
 WeUser* UserManager::verifyUser(string ID, string password) {
 	vector<WeUser*>::iterator usr = searchUser(ID);
-	if (usr!=WeUsers.end() && (*usr)->password == password) {
+	if (usr!=weUsers.end() && (*usr)->password == password) {
 		return *usr;
 	}
 	return nullptr;
