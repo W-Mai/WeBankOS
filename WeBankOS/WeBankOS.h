@@ -38,8 +38,17 @@ class WeBankOS {
 	void logout();
 	void registerUser();
 
+	void cardsFunc();
+	void addCard();
+	void cancelCard();
+	void depositCash();
+	void withdrawCash();
+	void showReceiptsAndDisbursementsDetails();
+	
+	void listCards();
 	void calcBigNum();
 	void loadConfigurations();
+	void saveConfigurations();
 
 	void clearScreen();
 	void help();
