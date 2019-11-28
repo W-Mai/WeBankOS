@@ -110,6 +110,7 @@
     <None Include="..\Standard.pdf">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\LOGO.png">
