@@ -181,7 +181,6 @@
     <None Include="..\Standard.indd" />
     <None Include="..\Standard.pdf" />
     <None Include="ClassDiagram.cd" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\LOGO.png" />
