@@ -2,11 +2,40 @@
 #include "WeBankOS.h"
 #include <windows.h>
 #include "TimeUtils.h"
+#include <corecrt_io.h>
+#include <direct.h>
+#include <fstream>
+
+time_t oneDay = 24 * 60 * 60;
 
 std::string add(const std::string a, const std::string b);
 std::string sub(const std::string a, const std::string b);
 
 inline void flush() { cin.ignore(1024, '\n'); }
+bool checkLocked(const string& account) {
+	fstream fs;
+	fs.open("./lock/" + account + ".lock", ios::in | ios::binary);
+	if (fs) {
+		time_t timeStamp;
+		fs.read(reinterpret_cast<char*>(&timeStamp), sizeof timeStamp);
+		if (TimeUtils::getTimeStamp() - timeStamp >= oneDay) {
+			remove(("./lock/" + account + ".lock").c_str());
+			return false;
+		}
+		cout << endl << "	Your account[" + account + "] has been locked." << endl;
+		cout << "	It will unlocked by " + TimeUtils::toNormalTime(timeStamp) << endl << endl;
+		return true;
+	}
+	return false;
+}
+
+void lockUser(const string& account) {
+	fstream fs;
+	fs.open("./lock/" + account + ".lock", ios::out | ios::binary);
+	auto timeStamp = TimeUtils::getTimeStamp() + oneDay;
+	fs.write(reinterpret_cast<char*>(&timeStamp), sizeof timeStamp);
+	cout << "	Your account[" + account + "] is locked now. It will be unlocked by" + TimeUtils::toNormalTime(timeStamp) << endl;
+}
 
 bool isLegalAccount(string account) {
 	auto numberCount = true;
@@ -104,6 +133,7 @@ void WeBankOS::init() const {
 	functions->registerFunction("calc", static_cast<FunctionType>(&WeBankOS::calcBigNum));
 	functions->registerFunction("ls", static_cast<FunctionType>(&WeBankOS::listCards));
 	functions->registerFunction("card", static_cast<FunctionType>(&WeBankOS::cardsFunc));
+	functions->registerFunction("balance", static_cast<FunctionType>(&WeBankOS::queryBalance));
 
 
 	//Register all the functions END.
@@ -132,6 +162,7 @@ void WeBankOS::help() {
 					  "\t\t-dep	deposit cash.\n"
 					  "\t\t-wit	withdraw cash.\n"
 					  "\t\t-det	show your receipts and disbursements details.");
+	showOneItemOfHelp("balance", "show every balance of your cards and total balance.");
 
 	//Register all the Help_Info END.
 
@@ -147,7 +178,7 @@ void WeBankOS::run() {
 		if (!rtn) {
 			setTextColor(HIGHLIGHT_COLOR);
 			cout << endl << "	Command Error: Bad Command \"" << command << "\"." << endl << endl
-				<< "	Type `help/?` for more commands."<< endl<<endl;
+				<< "	Type `help/?` for more commands." << endl << endl;
 			flush();
 			setTextColor(0x0F);
 		}
@@ -157,6 +188,7 @@ void WeBankOS::run() {
 }
 
 void WeBankOS::login() {
+	flush();
 	if (loggedUser) {
 		showSomeInfo("	You have been Logged in before. Please logged out first.");
 		cin.ignore(1024, '\n');
@@ -164,16 +196,29 @@ void WeBankOS::login() {
 	}
 	currentFunction = "LOGGED";
 
-	string name, password;
-	cin >> name >> password;
-	loggedUser = userManager.verifyUser(name, password);
-	if (loggedUser) {
-		fundsManager = new FundsManager(&icCardsManager, loggedUser);
-		showSomeInfo("	Welcome " + getUserName() + ". Logged In Successfully.");
-	} else {
-		currentFunction = "HOMEPAGE";
-		showSomeInfo("	Logged Failed. Please check your ID or Password.");
+	string account, password;
+	cout << "	Account >>> ";
+	cin >> account;
+	if (checkLocked(account)) {
+		flush();
+		return;
 	}
+
+	auto checkedPassword = 0;
+	do {
+		cout << "Password >>> ";
+		cin >> password;
+		loggedUser = userManager.verifyUser(account, password);
+		if (loggedUser) {
+			fundsManager = new FundsManager(&icCardsManager, loggedUser);
+			showSomeInfo("	Welcome " + getUserName() + ". Logged In Successfully.");
+			return;
+		}
+		checkedPassword++;
+		showSomeInfo("	Logged Failed. Please check your ID or Password.");
+	} while (checkedPassword < 3);
+	lockUser(account);
+	currentFunction = "HOMEPAGE";
 }
 
 void WeBankOS::logout() {
@@ -239,6 +284,33 @@ void WeBankOS::registerUser() {
 					 "Please change another one.");
 	}
 	currentFunction = "HOMEPAGE";
+}
+
+void WeBankOS::queryBalance() {
+	if (!loggedUser) {
+		showSomeInfo("	No permission here. Please logged in first.");
+		cin.ignore(1024, '\n');
+		return;
+	}
+
+	cout << endl;
+	auto cards = loggedUser->cards;
+	vector<ICCard*> cardsEntity;
+	for_each(cards.begin(),
+			 cards.end(),
+			 [&](const AccountType& cardID) {
+		const auto tempCard = icCardsManager.searchCard(cardID);
+		if (!icCardsManager.end(tempCard)) {
+			cardsEntity.push_back(*tempCard);
+		}
+	});
+	auto money = 0.0f;
+
+	for (const auto& card : cardsEntity) {
+		cout << "	" << card->account << "	Balance : " << card->balance << endl;
+		money += card->balance;
+	}
+	cout << endl << "Total Balance : " << money << endl << endl;
 }
 
 void WeBankOS::cardsFunc() {
@@ -342,7 +414,7 @@ void WeBankOS::withdrawCash() {
 			cin >> cash;
 			badCount++;
 		} while (cash < 0 || cash % 100);
-		
+
 		if (fundsManager->withdrawCash(tempICCard, cash)) {
 			showSomeInfo("Delta Cash \t[" + std::to_string(cash) + "]\n"
 						 "Current Time \t[" + TimeUtils::toNormalTime(TimeUtils::getTimeStamp()) + "]\n"
@@ -376,7 +448,7 @@ void WeBankOS::showReceiptsAndDisbursementsDetails() {
 		}
 		const auto tempIndex = (curIndex - 1) * perPageCount;
 		for (auto i = 0; i < perPageCount && tempIndex + i < allDetails.size(); i++) {
-			cout << "\t" <<TimeUtils::toNormalTime(allDetails[tempIndex+i]->opTime)<<"	"<< allDetails[tempIndex + i]->account << "\t";
+			cout << "\t" << TimeUtils::toNormalTime(allDetails[tempIndex + i]->opTime) << "	" << allDetails[tempIndex + i]->account << "\t";
 			if (allDetails[tempIndex + i]->amount < 0) {
 				cout << "outcome : [ " << -allDetails[tempIndex + i]->amount << " ]" << endl;
 			} else {

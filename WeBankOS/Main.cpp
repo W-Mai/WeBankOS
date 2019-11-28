@@ -20,7 +20,7 @@ void unitTest() {
 	usr.getData();
 	usr.getData();
 	cout << usr.getSize() << endl;
-	
+
 	usr2.name = "X_Tu";
 	cout << usr2.age << endl;
 	cout << usr2.gender << endl;
@@ -40,8 +40,8 @@ void unitTest() {
 	//usrmnger.cancelUser(&usr2);
 	cout << usrmnger.registerUser(&usr2) << endl;
 
-	
-	
+
+
 	cout << "Verify: " << usrmnger.verifyUser("23333333333333", "Xbn") << endl;
 
 
@@ -76,12 +76,12 @@ void unitTest() {
 	FundsManager fundsManager0(icdmnger, &usr);
 
 	cout << card->balance << endl;
-	
+
 	fundsManager0.depositCash(card, 100);
 	fundsManager0.withdrawCash(card, 20);
 
 	cout << card->balance << endl;
-	
+
 	auto usrmnger2 = new UserManager;
 	auto icdmnger2 = new ICCardsManager;
 	FileManager fm(".");
@@ -98,7 +98,7 @@ void unitTest() {
 			cout << "	$$" << c << endl;
 		}
 	}
-	
+
 	FundsManager fundsManager(icdmnger2, &usr);
 	for (auto x : usr.cards) {
 		//cout << x << endl;
@@ -115,7 +115,7 @@ void unitTest() {
 
 int main() {
 	auto os = new WeBankOS(".");
-	
+
 	while (os->isRunning()) {
 		os->run();
 	}

@@ -38,6 +38,7 @@ class WeBankOS {
 	void logout();
 	void registerUser();
 
+	void queryBalance();
 	void cardsFunc();
 	void addCard();
 	void cancelCard();

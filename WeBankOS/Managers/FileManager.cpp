@@ -14,6 +14,9 @@ void FileManager::completeDirectors() const {
 	if (_access((mainFilePath + ICCARD_PATH).c_str(), 0)) {
 		_mkdir((mainFilePath + ICCARD_PATH).c_str());
 	}
+	if (_access("./lock", 0)) {
+		mkdir("./lock");
+	}
 }
 
 vector<string>* FileManager::fileSearch(string path) {
