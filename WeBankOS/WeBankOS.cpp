@@ -318,7 +318,7 @@ void WeBankOS::depositCash() {
 	if (tempICCard) {
 		fundsManager->depositCash(tempICCard, cash);
 		showSomeInfo("Delta Cash \t[" + std::to_string(cash) + "]\n"
-					 "Current Time \t[" + std::to_string(TimeUtils::getTimeStamp()) + "]\n"
+					 "Current Time \t[" + TimeUtils::toNormalTime(TimeUtils::getTimeStamp()) + "]\n"
 					 "Current Balance \t[" + std::to_string(tempICCard->balance) + "]");
 	} else { showSomeInfo("Can't verify your account. Please check you password and account."); }
 }
@@ -345,7 +345,7 @@ void WeBankOS::withdrawCash() {
 		
 		if (fundsManager->withdrawCash(tempICCard, cash)) {
 			showSomeInfo("Delta Cash \t[" + std::to_string(cash) + "]\n"
-						 "Current Time \t[" + std::to_string(TimeUtils::getTimeStamp()) + "]\n"
+						 "Current Time \t[" + TimeUtils::toNormalTime(TimeUtils::getTimeStamp()) + "]\n"
 						 "Current Balance \t[" + std::to_string(tempICCard->balance) + "]");
 		} else { showSomeInfo("Sorry. Please check you balance. Deal failed."); }
 
@@ -376,7 +376,7 @@ void WeBankOS::showReceiptsAndDisbursementsDetails() {
 		}
 		const auto tempIndex = (curIndex - 1) * perPageCount;
 		for (auto i = 0; i < perPageCount && tempIndex + i < allDetails.size(); i++) {
-			cout << "\t" <<std::to_string(allDetails[tempIndex+i]->opTime)<<"	"<< allDetails[tempIndex + i]->account << "\t";
+			cout << "\t" <<TimeUtils::toNormalTime(allDetails[tempIndex+i]->opTime)<<"	"<< allDetails[tempIndex + i]->account << "\t";
 			if (allDetails[tempIndex + i]->amount < 0) {
 				cout << "outcome : [ " << -allDetails[tempIndex + i]->amount << " ]" << endl;
 			} else {
