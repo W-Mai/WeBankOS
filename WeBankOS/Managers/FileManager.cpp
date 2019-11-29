@@ -15,7 +15,7 @@ void FileManager::completeDirectors() const {
 		_mkdir((mainFilePath + ICCARD_PATH).c_str());
 	}
 	if (_access("./lock", 0)) {
-		mkdir("./lock");
+		_mkdir("./lock");
 	}
 }
 
@@ -47,7 +47,7 @@ FileManager::FileManager(const string& mainDir) {
 void FileManager::loadData(UserManager* userManager) {
 	fstream fs;
 	auto users = &userManager->weUsers;
-	auto fileList = fileSearch(mainFilePath + WEUSERS_PATH);
+	const auto fileList = fileSearch(mainFilePath + WEUSERS_PATH);
 	
 	for (const auto& fileName:*fileList) {
 		fs.open(mainFilePath + WEUSERS_PATH"/" + fileName, ios::in | ios::binary);

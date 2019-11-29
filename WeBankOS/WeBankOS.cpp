@@ -206,7 +206,7 @@ void WeBankOS::login() {
 
 	auto checkedPassword = 0;
 	do {
-		cout << "Password >>> ";
+		cout << "	Password >>> ";
 		cin >> password;
 		loggedUser = userManager.verifyUser(account, password);
 		if (loggedUser) {
